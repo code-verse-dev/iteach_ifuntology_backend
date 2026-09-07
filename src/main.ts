@@ -10,6 +10,8 @@ import * as express from 'express';
 import corsOptions from './common/config/cors';
 import * as cookieParser from 'cookie-parser';
 import { existsSync, mkdirSync } from 'fs';
+import credentials from './ssl';
+
 
 async function bootstrap() {
   const { NODE_ENV, PORT } = process.env;
@@ -22,9 +24,14 @@ async function bootstrap() {
     mkdirSync(uploadRoot, { recursive: true });
   }
 
-  const app = await NestFactory.create(AppModule, new ExpressAdapter(server), {
-    bodyParser: false,
-  });
+  const app = await NestFactory.create(
+    AppModule,
+    new ExpressAdapter(server),
+    {
+      bodyParser: false,
+      ...(isHttps ? { httpsOptions: credentials } : {}),
+    },
+  );
 
   app.use(express.json({ limit: '50mb' }));
   app.use(express.urlencoded({ extended: true, limit: '50mb' }));
