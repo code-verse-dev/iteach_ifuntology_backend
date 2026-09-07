@@ -17,12 +17,14 @@ async function bootstrap() {
   const { NODE_ENV, PORT } = process.env;
   const port = PORT || 3034;
   const isHttps = NODE_ENV === 'customdev';
-
+  console.log(isHttps, 'isHttps');
+  console.log(credentials, 'credentials');
   const server = express();
   const uploadRoot = join(process.cwd(), 'Uploads');
   if (!existsSync(uploadRoot)) {
     mkdirSync(uploadRoot, { recursive: true });
   }
+
 
   const app = await NestFactory.create(
     AppModule,
