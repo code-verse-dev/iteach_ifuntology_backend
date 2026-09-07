@@ -14,7 +14,7 @@ import credentials from './ssl';
 
 async function bootstrap() {
   const { NODE_ENV, PORT } = process.env;
-  const port = PORT || 3034;
+  const port = PORT || 3038;
   const isHttps = NODE_ENV === 'customdev';
   const server = express();
   const app = await NestFactory.create(
