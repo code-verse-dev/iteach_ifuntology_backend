@@ -9,7 +9,6 @@ import { join } from 'path';
 import * as express from 'express';
 import corsOptions from './common/config/cors';
 import * as cookieParser from 'cookie-parser';
-import { existsSync, mkdirSync } from 'fs';
 import credentials from './ssl';
 
 
@@ -18,12 +17,6 @@ async function bootstrap() {
   const port = PORT || 3034;
   const isHttps = NODE_ENV === 'customdev';
   const server = express();
-  const uploadRoot = join(process.cwd(), 'Uploads');
-  if (!existsSync(uploadRoot)) {
-    mkdirSync(uploadRoot, { recursive: true });
-  }
-
-
   const app = await NestFactory.create(
     AppModule,
     new ExpressAdapter(server),
@@ -61,8 +54,11 @@ async function bootstrap() {
     }
     next();
   };
-  app.use('/uploads', allowStaticCors, express.static(uploadRoot));
-  app.use('/Uploads', allowStaticCors, express.static(uploadRoot));
+  app.use(
+    '/Uploads',
+    allowStaticCors,
+    express.static(join(__dirname, '..', 'Uploads')),
+  );
   app.use(cookieParser());
   app.useGlobalPipes(
     new ValidationPipe({
