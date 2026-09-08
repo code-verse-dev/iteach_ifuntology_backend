@@ -8,7 +8,7 @@ export const cookieOptions: any = {
   secure: NODE_ENV !== 'development',
   sameSite: NODE_ENV !== 'development' ? 'none' : 'lax',
   domain: NODE_ENV?.includes('live')
-    ? process.env.COOKIE_DOMAIN || undefined
+    ? "iteachifuntology.com"
     : undefined,
   path: '/',
 };

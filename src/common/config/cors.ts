@@ -2,8 +2,8 @@ const allowedOrigins = new Set([
   'localhost',
   '127.0.0.1',
   "react.customdev.solutions",
-  'iteach-ifuntology.com',
-  'api.iteach-ifuntology.com',
+  'iteachifuntology.com',
+  'api.iteachifuntology.com',
   'ifuntology.com',
 ]);
 
