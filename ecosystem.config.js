@@ -2,7 +2,7 @@ module.exports = {
   apps: [
     {
       name: "iteach_ifuntology_backend",
-      script: "dist/index.js",
+      script: "dist/main.js",
       instances: 1,
       autorestart: true,
       watch: false,
