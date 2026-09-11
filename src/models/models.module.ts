@@ -31,6 +31,10 @@ import { Certificate, CertificateSchema } from './certificate.schema';
 import { Chat, ChatSchema } from './chat.schema';
 import { Message, MessageSchema } from './message.schema';
 import { VidLibrary, VidLibrarySchema } from './vid-library.schema';
+import {
+  PracticalCreditSheet,
+  PracticalCreditSheetSchema,
+} from './practical-credit-sheet.schema';
 
 @Module({
   imports: [
@@ -54,6 +58,7 @@ import { VidLibrary, VidLibrarySchema } from './vid-library.schema';
       { name: Chat.name, schema: ChatSchema },
       { name: Message.name, schema: MessageSchema },
       { name: VidLibrary.name, schema: VidLibrarySchema },
+      { name: PracticalCreditSheet.name, schema: PracticalCreditSheetSchema },
     ]),
   ],
   exports: [MongooseModule],
