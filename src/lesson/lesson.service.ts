@@ -281,6 +281,12 @@ export class LessonService {
         };
       }
       const update: any = { ...dto };
+      if (dto.allowPdfPreview !== undefined) {
+        update.allowPdfPreview = dto.allowPdfPreview;
+      }
+      if (dto.allowPdfDownload !== undefined) {
+        update.allowPdfDownload = dto.allowPdfDownload;
+      }
       if (files?.file?.[0]) {
         removeFromUploads(lesson.fileUrl);
         update.fileUrl = files.file[0].filename;

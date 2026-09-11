@@ -23,6 +23,10 @@ import {
   PASSWORD_VALIDATION_MESSAGE,
 } from 'src/common/utils/password.util';
 import { Certificate, CertificateDocument } from 'src/models/certificate.schema';
+import {
+  PracticalCreditSheet,
+  PracticalCreditSheetDocument,
+} from 'src/models/practical-credit-sheet.schema';
 
 @Injectable()
 export class InvitationService {
@@ -36,6 +40,8 @@ export class InvitationService {
     private invitationModel: Model<InvitationDocument>,
     @InjectModel(Certificate.name)
     private certificateModel: Model<CertificateDocument>,
+    @InjectModel(PracticalCreditSheet.name)
+    private practicalCreditSheetModel: Model<PracticalCreditSheetDocument>,
     @InjectConnection() private connection: Connection,
     private readonly mailService: EmailService,
     private readonly notificationService: NotificationService,
@@ -514,11 +520,21 @@ export class InvitationService {
         { session },
       );
 
+      const courseTypes = enrollments.map((enrollment) => enrollment.courseType);
       const remaining = await this.enrollmentModel
         .countDocuments({ user: id })
         .session(session);
       if (remaining === 0) {
+        await this.practicalCreditSheetModel.deleteMany(
+          { student: id },
+          { session },
+        );
         await this.userModel.deleteOne({ _id: id, role: UserRole.STUDENT }, { session });
+      } else if (courseTypes.length) {
+        await this.practicalCreditSheetModel.deleteMany(
+          { student: id, courseType: { $in: courseTypes } },
+          { session },
+        );
       }
 
       await session.commitTransaction();

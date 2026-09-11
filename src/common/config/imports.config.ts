@@ -26,6 +26,7 @@ import { MessageModule } from 'src/message/message.module';
 import { CertificateModule } from 'src/certificate/certificate.module';
 import { SeedModule } from 'src/seed/seed.module';
 import { AuthModule } from 'src/auth/auth.module';
+import { PracticalCreditSheetModule } from 'src/practical-credit-sheet/practical-credit-sheet.module';
 
 export const AppImports = [
   ConfigModule.forRoot({
@@ -68,5 +69,6 @@ export const AppImports = [
   ChatModule,
   MessageModule,
   CertificateModule,
+  PracticalCreditSheetModule,
   SeedModule,
 ];
